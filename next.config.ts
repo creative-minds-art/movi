@@ -1,7 +1,10 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  turbopack: {
+    // Force the correct workspace root to avoid resolving dependencies from a parent directory
+    root: __dirname,
+  },
 };
 
 export default nextConfig;
