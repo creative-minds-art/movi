@@ -121,14 +121,10 @@
   }
 }
 
-.mapboxgl-marker {
-  background-color: transparent !important;
+.dotted-border {
+  border-style: dotted;
 }
 
-.marker {
-  display: block;
-  border: none;
-  border-radius: 50%;
-  cursor: pointer;
-  padding: 0;
+.dashed-border {
+  border-style: dashed;
 }

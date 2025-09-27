@@ -1,11 +1,13 @@
 import type { Metadata } from 'next';
-import { Open_Sans } from 'next/font/google';
+import { Roboto } from 'next/font/google';
 import './globals.css';
 import 'mapbox-gl/dist/mapbox-gl.css';
+import { Providers } from './providers';
 
-const openSans = Open_Sans({
-  variable: '--font-open-sans',
+const roboto = Roboto({
+  variable: '--font-roboto',
   subsets: ['latin'],
+  weight: ['400', '500', '700'],
 });
 
 export const metadata: Metadata = {
@@ -17,11 +19,11 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
-        className={`${openSans.className} bg-black antialiased h-[100dvh] w-screen max-w-md overflow-hidden flex justify-center items-center`}
+        className={`${roboto.className} bg-background text-foreground antialiased h-[100dvh] w-screen max-w-md overflow-hidden flex justify-center items-center`}
       >
-        {children}
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

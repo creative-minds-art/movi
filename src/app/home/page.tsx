@@ -1,9 +1,11 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import mapboxgl from 'mapbox-gl';
 import InfoCards from '@/components/home/InfoCards';
-import React from 'react';
+import SearchBar from '@/components/home/SearchBar';
+import SuggestedDestinations from '@/components/home/SuggestedDestinations';
+import { useTheme } from 'next-themes';
 
 const universities = [
   {
@@ -43,6 +45,12 @@ const universities = [
 const HomePage: React.FC = () => {
   const mapContainerRef = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<mapboxgl.Map | null>(null);
+  const { theme } = useTheme();
+  const [showSuggestions, setShowSuggestions] = useState(false);
+
+  const toggleSuggestions = () => {
+    setShowSuggestions(!showSuggestions);
+  };
 
   useEffect(() => {
     const token = process.env.NEXT_PUBLIC_MAPBOX_API_KEY!;
@@ -52,7 +60,10 @@ const HomePage: React.FC = () => {
 
     const map = new mapboxgl.Map({
       container: mapContainerRef.current,
-      style: 'mapbox://styles/mapbox/dark-v11', // Dark theme
+      style:
+        theme === 'dark'
+          ? 'mapbox://styles/mapbox/dark-v11'
+          : 'mapbox://styles/mapbox/light-v11',
       center: [-76.532, 3.4516], // Cali
       zoom: 12,
     });
@@ -60,9 +71,9 @@ const HomePage: React.FC = () => {
     universities.forEach((uni) => {
       const el = document.createElement('div');
       el.className = 'marker';
-      el.style.backgroundImage = 'url(/globe.svg)'; // Using an existing SVG for now
-      el.style.width = '30px';
-      el.style.height = '30px';
+      el.style.backgroundImage = 'url(/marker.svg)'; // Using the new SVG
+      el.style.width = '48px';
+      el.style.height = '48px';
       el.style.backgroundSize = '100%';
 
       new mapboxgl.Marker(el)
@@ -80,13 +91,20 @@ const HomePage: React.FC = () => {
   }, []);
 
   return (
-    <div className="relative w-screen h-[100dvh] bg-black">
+    <div className="relative w-screen h-[100dvh] bg-background">
+      <div className="absolute top-0 left-0 right-0 z-10 p-4">
+        <div onClick={toggleSuggestions}>
+          <SearchBar />
+        </div>
+        {showSuggestions && <SuggestedDestinations />}
+      </div>
+
       <InfoCards />
-      <div className="absolute bottom-20 left-0 right-0 p-4 top-80">
-        <div ref={mapContainerRef} className="w-full h-full rounded-lg" />
+      <div className="absolute inset-0">
+        <div ref={mapContainerRef} className="w-full h-full" />
       </div>
     </div>
   );
-}
+};
 
 export default HomePage;

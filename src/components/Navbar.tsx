@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { usePathname } from 'next/navigation';
 import { AiFillHome } from 'react-icons/ai';
 import { FaWallet, FaTicketAlt, FaUser } from 'react-icons/fa';
+import { ThemeToggleButton } from './ThemeToggleButton';
 
 const navItems = [
   {
@@ -49,9 +50,9 @@ export default function Navbar() {
         initial={{ y: 100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ type: 'spring', stiffness: 120, damping: 15, delay: 0.5 }}
-        className="bg-black/90 backdrop-blur-lg rounded-2xl px-6 py-3 flex items-center justify-around shadow-2xl border border-white/10"
+        className="bg-background/90 backdrop-blur-lg rounded-2xl px-6 py-3 flex items-center justify-around shadow-2xl border border-border/10"
         style={{
-          background: 'linear-gradient(135deg, rgba(0,0,0,0.9) 0%, rgba(30,30,30,0.9) 100%)',
+          background: 'linear-gradient(135deg, var(--background) 0%, var(--card) 100%)',
         }}
       >
         {navItems.map((item) => {
@@ -79,7 +80,7 @@ export default function Navbar() {
                 <motion.div
                   className="relative z-10 flex items-center space-x-2"
                   animate={{
-                    color: active ? '#ffffff' : '#9CA3AF',
+                    color: active ? 'var(--primary-foreground)' : 'var(--muted-foreground)',
                   }}
                   transition={{ duration: 0.2 }}
                 >
@@ -109,6 +110,9 @@ export default function Navbar() {
             </Link>
           );
         })}
+        <div className="absolute right-4 top-1/2 -translate-y-1/2">
+          <ThemeToggleButton />
+        </div>
       </motion.nav>
     </div>
   );
