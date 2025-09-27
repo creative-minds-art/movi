@@ -1,5 +1,6 @@
 import React from 'react';
 import { FaCar, FaUserCircle } from 'react-icons/fa';
+import Image from 'next/image';
 
 const routes = [
   {
@@ -9,6 +10,7 @@ const routes = [
     driverName: 'Carlos Sánchez',
     availableSeats: 3,
     price: '5,000',
+    vehicleImage: '/vehicles/vehicle1.png',
   },
   {
     origen: 'Centro Comercial Unicentro',
@@ -17,6 +19,7 @@ const routes = [
     driverName: 'Ana García',
     availableSeats: 2,
     price: '6,500',
+    vehicleImage: '/vehicles/vehicle2.png',
   },
   {
     origen: 'Barrio San Fernando',
@@ -25,6 +28,7 @@ const routes = [
     driverName: 'Luis Pérez',
     availableSeats: 4,
     price: '4,500',
+    vehicleImage: '/vehicles/vehicle3.png',
   },
   {
     origen: 'Ciudad Jardín',
@@ -33,6 +37,7 @@ const routes = [
     driverName: 'María Rodríguez',
     availableSeats: 1,
     price: '7,000',
+    vehicleImage: '/vehicles/vehicle4.png',
   },
 ];
 
@@ -43,6 +48,7 @@ const RouteCard = ({
   driverName,
   availableSeats,
   price,
+  vehicleImage,
 }: {
   origen: string;
   destino: string;
@@ -50,12 +56,13 @@ const RouteCard = ({
   driverName: string;
   availableSeats: number;
   price: string;
+  vehicleImage: string;
 }) => {
   return (
     <div className="bg-card rounded-2xl shadow-lg p-5 mb-4 flex flex-col transition-all duration-300 hover:shadow-xl hover:scale-[1.02]">
       <div className="flex items-center justify-between w-full mb-4">
         <div className="flex items-center">
-          <FaCar className="text-primary mr-3 text-2xl" />
+            <Image src={vehicleImage} alt="Vehicle" width={64} height={64} className="rounded-full mr-3" />
           <div>
             <p className="font-bold text-lg">{origen}</p>
             <p className="text-sm text-muted-foreground">{destino}</p>

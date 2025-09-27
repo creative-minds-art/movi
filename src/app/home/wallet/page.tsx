@@ -1,15 +1,12 @@
 'use client';
 
-import React, { useState, useRef, useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import {
   Carousel,
-  CarouselContent,
   CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
+  CarouselContent,
 } from '@/components/ui/carousel';
-import { FaUserCircle, FaCreditCard, FaTh } from 'react-icons/fa';
-import '../../globals.css';
+import { FaUserCircle, FaTh } from 'react-icons/fa';
 
 function WalletPage() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -87,79 +84,75 @@ function WalletPage() {
                       <div>
                         <div className="flex justify-between items-center">
                           <div className="flex items-center space-x-2">
-                              <span className="text-sm text-muted-foreground">
-                                Saldo
-                              </span>
-                              <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-muted text-muted-foreground">
-                                BTC
-                              </span>
-                            </div>
-                            <button className="text-foreground text-xs px-4 py-2 rounded-full bg-background/10">
-                              Editar
-                            </button>
+                            <span className="text-sm text-muted-foreground">
+                              Saldo
+                            </span>
+                            <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-muted text-muted-foreground">
+                              BTC
+                            </span>
                           </div>
-                          <p className="text-3xl font-semibold mt-2">
-                            $5,756.32
-                          </p>
+                          <button className="text-foreground text-xs px-4 py-2 rounded-full bg-background/10">
+                            Editar
+                          </button>
                         </div>
-                        <div className="flex justify-between items-end">
-                          <div>
-                            <p className="text-sm text-muted-foreground">
-                              Número de Tarjeta
-                            </p>
-                            <p className="text-lg font-medium tracking-wider">
-                              •••• 3546
-                            </p>
-                          </div>
-                          <div className="flex items-center">
-                            <div className="w-10 h-10 rounded-full border-2 border-transparent bg-[#EB001B]"></div>
-                            <div className="w-10 h-10 rounded-full -ml-4 border-2 border-transparent bg-[#F79E1B]"></div>
-                          </div>
-                        </div>
+                        <p className="text-3xl font-semibold mt-2">$5,756.32</p>
                       </div>
-                    </div>
-                  </CarouselItem>
-                  {/* Add more CarouselItems for additional cards if needed */}
-                  <CarouselItem>
-                    <div className="p-1">
-                      <div className="relative z-10 w-80 h-56 rounded-3xl p-6 flex flex-col justify-between shadow-2xl border border-border bg-card">
+                      <div className="flex justify-between items-end">
                         <div>
-                          <div className="flex justify-between items-center">
-                            <div className="flex items-center space-x-2">
-                              <span className="text-sm text-muted-foreground">
-                                Saldo
-                              </span>
-                              <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-muted text-muted-foreground">
-                                ETH
-                              </span>
-                            </div>
-                            <button className="text-foreground text-xs px-4 py-2 rounded-full bg-background/10">
-                              Editar
-                            </button>
-                          </div>
-                          <p className="text-3xl font-semibold mt-2">
-                            $1,234.56
+                          <p className="text-sm text-muted-foreground">
+                            Número de Tarjeta
+                          </p>
+                          <p className="text-lg font-medium tracking-wider">
+                            •••• 3546
                           </p>
                         </div>
-                        <div className="flex justify-between items-end">
-                          <div>
-                            <p className="text-sm text-muted-foreground">
-                              Número de Tarjeta
-                            </p>
-                            <p className="text-lg font-medium tracking-wider">
-                              •••• 7890
-                            </p>
-                          </div>
-                          <div className="flex items-center">
-                            <div className="w-10 h-10 rounded-full border-2 border-transparent bg-[#627EEA]"></div>
-                            <div className="w-10 h-10 rounded-full -ml-4 border-2 border-transparent bg-[#8A92B2]"></div>
-                          </div>
+                        <div className="flex items-center">
+                          <div className="w-10 h-10 rounded-full border-2 border-transparent bg-[#EB001B]"></div>
+                          <div className="w-10 h-10 rounded-full -ml-4 border-2 border-transparent bg-[#F79E1B]"></div>
                         </div>
                       </div>
                     </div>
-                  </CarouselItem>
-                </CarouselContent>
-              </Carousel>
+                  </div>
+                </CarouselItem>
+                {/* Add more CarouselItems for additional cards if needed */}
+                <CarouselItem>
+                  <div className="p-1">
+                    <div className="relative z-10 w-80 h-56 rounded-3xl p-6 flex flex-col justify-between shadow-2xl border border-border bg-card">
+                      <div>
+                        <div className="flex justify-between items-center">
+                          <div className="flex items-center space-x-2">
+                            <span className="text-sm text-muted-foreground">
+                              Saldo
+                            </span>
+                            <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-muted text-muted-foreground">
+                              ETH
+                            </span>
+                          </div>
+                          <button className="text-foreground text-xs px-4 py-2 rounded-full bg-background/10">
+                            Editar
+                          </button>
+                        </div>
+                        <p className="text-3xl font-semibold mt-2">$1,234.56</p>
+                      </div>
+                      <div className="flex justify-between items-end">
+                        <div>
+                          <p className="text-sm text-muted-foreground">
+                            Número de Tarjeta
+                          </p>
+                          <p className="text-lg font-medium tracking-wider">
+                            •••• 7890
+                          </p>
+                        </div>
+                        <div className="flex items-center">
+                          <div className="w-10 h-10 rounded-full border-2 border-transparent bg-[#627EEA]"></div>
+                          <div className="w-10 h-10 rounded-full -ml-4 border-2 border-transparent bg-[#8A92B2]"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </CarouselItem>
+              </CarouselContent>
+            </Carousel>
           </div>
 
           {/* Card indicator dots */}
@@ -169,7 +162,9 @@ function WalletPage() {
                 <span
                   key={index}
                   className={`h-1.5 rounded-full ${
-                    currentSlide === index ? 'w-3 bg-foreground' : 'w-1.5 bg-muted'
+                    currentSlide === index
+                      ? 'w-3 bg-foreground'
+                      : 'w-1.5 bg-muted'
                   }`}
                   onClick={() => api && api.scrollTo(index)}
                 ></span>
