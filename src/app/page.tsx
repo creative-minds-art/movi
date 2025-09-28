@@ -1,25 +1,29 @@
 'use client';
 
 import Image from 'next/image';
-import Sidebar from '../components/Sidebar';
 import { motion } from 'motion/react';
 import { useState } from 'react';
 import Link from 'next/link';
+import { useTheme } from 'next-themes';
 
 export default function Home() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const { theme } = useTheme();
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
+  const backgroundImageSrc =
+    theme === 'light' ? '/landing/car_full_white.png' : '/landing/car_full.png';
+
   return (
-    <div className="relative w-full  mx-auto  text-white min-h-screen overflow-hidden bg-black">
+    <div className={`relative w-full  mx-auto  min-h-screen overflow-hidden ${theme === 'light' ? 'text-black bg-white' : 'text-white bg-black'}`}>
       {/* Background Image */}
       <div className="absolute inset-0">
         <Image
-          src="/landing/car_full.png"
-          alt="MobiU 2"
+          src={backgroundImageSrc}
+          alt="Movi 2"
           fill
           className="object-cover object-[25%_center]"
           priority
@@ -86,13 +90,11 @@ export default function Home() {
         />
       </div>
 
-      {/* Sidebar */}
-      <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
       {/* Main Content */}
       <div className="relative py-4 h-[100dvh] flex flex-col">
         {/* Header */}
         <motion.header
-          className="flex justify-between items-center p-4 relative z-30"
+          className="flex justify-start items-center p-4 relative z-30"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{
@@ -101,31 +103,9 @@ export default function Home() {
             ease: 'easeOut',
           }}
         >
-          {/* Hamburger Menu */}
-          <motion.button
-            onClick={toggleSidebar}
-            className="text-white hover:text-gray-300 transition-colors"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <svg
-              className="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M4 6h16M4 12h16M4 18h16"
-              />
-            </svg>
-          </motion.button>
-
           {/* Logo */}
-          <motion.h1
-            className="text-xl font-semibold"
+          <motion.div
+            className="flex items-center"
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{
@@ -134,11 +114,18 @@ export default function Home() {
               ease: 'easeOut',
             }}
           >
-            MobiU
-          </motion.h1>
+            <Image
+              src="/auth/logo.png"
+              alt="MobiU Logo"
+              width={30}
+              height={30}
+              className="mr-2"
+            />
+            <h1 className="text-xl font-semibold">Movi</h1>
+          </motion.div>
         </motion.header>
         {/* Hero Section */}
-        <main className="relative flex min-h-screen flex-col  justify-between p-6 max-w-md z-10">
+        <main className="relative flex min-h-screen flex-col  justify-between p-6 pb-20 max-w-md z-10">
           {/* Content Overlay */}
           <div className="relative z-10 p-6 h-full flex flex-col justify-between">
             {/* Top Content */}
@@ -162,10 +149,10 @@ export default function Home() {
                   ease: 'easeOut',
                 }}
               >
-                MobiU
+                Movi
               </motion.h2>
               <motion.p
-                className="text-lg text-gray-200"
+                className={`text-lg ${theme === 'light' ? 'text-gray-700' : 'text-gray-200'}`}
                 initial={{ opacity: 0, x: -30 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{
@@ -174,7 +161,7 @@ export default function Home() {
                   ease: 'easeOut',
                 }}
               >
-                Hermoso. Potente. Eléctrico.
+                Encuentra cupos disponibles y reserva tu lugar en solo 3 pasos.
               </motion.p>
             </motion.div>
 
@@ -200,10 +187,12 @@ export default function Home() {
                   ease: 'easeOut',
                 }}
               >
-                <p className="text-sm text-gray-300 mb-1">
+                <p className={`text-sm mb-1 ${theme === 'light' ? 'text-gray-600' : 'text-gray-300'}`}>
                   La red de cupos más grande
                 </p>
-                <p className="text-sm text-gray-300">para estudiantes</p>
+                <p className={`text-sm ${theme === 'light' ? 'text-gray-600' : 'text-gray-300'}`}>
+                  para estudiantes
+                </p>
               </motion.div>
 
               {/* Action Buttons */}
@@ -219,36 +208,16 @@ export default function Home() {
               >
                 <Link href="/login" passHref>
                   <motion.button
-                    className="w-full bg-white text-black py-3 px-6 rounded-full font-medium hover:bg-gray-100 transition-colors flex items-center justify-between"
+                    className={`w-full py-3 px-6 rounded-full font-medium transition-colors flex items-center justify-between ${
+                      theme === 'light'
+                        ? 'bg-black text-white hover:bg-gray-800'
+                        : 'bg-white text-black hover:bg-gray-100'
+                    }`}
                     whileHover={{ scale: 1.02, y: -2 }}
                     whileTap={{ scale: 0.98 }}
                     transition={{ type: 'spring', stiffness: 400, damping: 17 }}
                   >
-                    <span>Reservar un cupo</span>
-                    <svg
-                      className="w-4 h-4"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M9 5l7 7-7 7"
-                      />
-                    </svg>
-                  </motion.button>
-                </Link>
-
-                <Link href="/login" passHref>
-                  <motion.button
-                    className="w-full bg-transparent border border-white text-white py-3 px-6 rounded-full font-medium hover:bg-white hover:text-black transition-colors flex items-center justify-between"
-                    whileHover={{ scale: 1.02, y: -2 }}
-                    whileTap={{ scale: 0.98 }}
-                    transition={{ type: 'spring', stiffness: 400, damping: 17 }}
-                  >
-                    <span>Buscar cupos</span>
+                    <span>Iniciar sesion</span>
                     <svg
                       className="w-4 h-4"
                       fill="none"

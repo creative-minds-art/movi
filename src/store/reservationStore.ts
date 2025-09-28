@@ -1,5 +1,4 @@
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
 
 export interface RouteData {
   id: string;
@@ -25,7 +24,6 @@ interface ReservationState {
 }
 
 export const useReservationStore = create<ReservationState>()(
-  persist(
     (set, get) => ({
       reservedRoutes: [],
       
@@ -56,10 +54,5 @@ export const useReservationStore = create<ReservationState>()(
       clearAllReservations: () => {
         set({ reservedRoutes: [] });
       },
-    }),
-    {
-      name: 'mobi-reservations',
-      version: 1,
-    }
-  )
+    })
 );

@@ -77,11 +77,6 @@ const RouteDetailPage = () => {
 
       addReservation(route);
       setIsReserved(true);
-
-      // Show success feedback and redirect
-      setTimeout(() => {
-        router.push('/home');
-      }, 1500);
     } catch (error) {
       console.error('Error making reservation:', error);
     } finally {
@@ -287,11 +282,12 @@ const RouteDetailPage = () => {
             disabled={isReserved || isLoading}
             className={`w-full py-3 rounded-lg font-semibold mb-6 flex items-center justify-center gap-2 transition-all duration-200 ${
               isReserved
-                ? 'bg-green-500 text-white cursor-not-allowed'
+                ? 'cursor-not-allowed text-white'
                 : isLoading
                 ? 'bg-blue-400 text-white cursor-not-allowed'
                 : 'bg-blue-500 hover:bg-blue-600 text-white'
             }`}
+            style={isReserved ? { backgroundColor: '#28A745' } : {}}
           >
             {isLoading ? (
               <>
@@ -301,7 +297,7 @@ const RouteDetailPage = () => {
             ) : isReserved ? (
               <>
                 <FaCheck className="text-lg" />
-                Cupo Reservado
+                Cupo reservado, revisa tu correo para confirmar
               </>
             ) : (
               'Reservar cupo'

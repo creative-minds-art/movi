@@ -14,12 +14,12 @@ const navItems = [
     href: '/home',
     path: '/home',
   },
-  {
+/*   {
     name: 'Billetera',
     icon: <FaWallet size={20} />,
     href: '/home/wallet',
     path: '/home/wallet',
-  },
+  }, */
   {
     name: 'Cupos',
     icon: <FaTicketAlt size={20} />,

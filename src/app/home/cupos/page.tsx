@@ -74,65 +74,65 @@ const RouteCard = ({
   const driverImage = driverImages[parseInt(id) % driverImages.length];
 
   return (
-    <ScrollArea className="h-screen overflow-hidden">
-      <div className="bg-card rounded-2xl shadow-lg p-5 mb-4 flex flex-col transition-all duration-300 hover:shadow-xl hover:scale-[1.02] cursor-pointer">
-        <div className="flex items-center justify-between w-full mb-4">
-          <div className="flex items-center">
-            <Image
-              src={vehicleImage}
-              alt="Vehicle"
-              width={64}
-              height={64}
-              className="rounded-full mr-3"
-            />
-            <div>
-              <p className="font-bold text-lg">{origen}</p>
-              <p className="text-sm text-muted-foreground">{destino}</p>
-            </div>
-          </div>
-          <div className="text-right">
-            <p className="font-bold text-lg">${price}</p>
-            <p className="text-sm text-muted-foreground">COP</p>
-          </div>
-        </div>
-
-        <div className="border-t border-border my-4"></div>
-
-        <div className="flex items-center justify-between w-full">
-          <div className="flex items-center overflow-hidden">
-            <Image
-              src={driverImage}
-              alt="Driver Avatar"
-              width={40}
-              height={40}
-              className="size-10 rounded-full mr-3 overflow-hidden"
-            />
-            <div>
-              <p className="font-semibold">{driverName}</p>
-              <p className="text-sm text-muted-foreground">{hora}</p>
-            </div>
-          </div>
-          <div className="text-right">
-            <p className="font-semibold">{availableSeats} cupos</p>
-            <p className="text-sm text-muted-foreground">disponibles</p>
+    <div className="bg-card rounded-2xl shadow-lg p-5 mb-4 flex flex-col transition-all duration-300 hover:shadow-xl hover:scale-[1.02] cursor-pointer">
+      {/* Origen - Destino y Precio */}
+      <div className="flex items-center justify-between w-full mb-4">
+        <div className="flex items-center">
+          <Image
+            src={vehicleImage}
+            alt="Vehicle"
+            width={64}
+            height={64}
+            className="rounded-full mr-3"
+          />
+          <div>
+            <p className="font-bold text-lg">{origen}</p>
+            <p className="text-sm text-muted-foreground">→ {destino}</p>
           </div>
         </div>
       </div>
-    </ScrollArea>
+
+      <div className="border-t border-border my-4"></div>
+
+      {/* Conductor, Hora de salida y Cupos disponibles */}
+      <div className="flex items-center justify-between w-full">
+        <div className="flex items-center overflow-hidden">
+          <Image
+            src={driverImage}
+            alt="Driver Avatar"
+            width={40}
+            height={40}
+            className="size-10 rounded-full mr-3 overflow-hidden"
+          />
+          <div>
+            <p className="font-semibold">{driverName}</p>
+            <p className="text-sm text-muted-foreground">Salida: {hora}</p>
+          </div>
+        </div>
+        <div className="text-right">
+          <p className="font-semibold">{availableSeats} cupos</p>
+          <p className="text-sm text-muted-foreground">disponibles</p>
+        </div>
+      </div>
+    </div>
   );
 };
 
 const CuposPage = () => {
   return (
-    <div className="bg-background text-foreground p-4 max-w-md mx-auto font-sans min-h-screen">
-      <h1 className="text-3xl font-bold mb-6">Rutas Disponibles</h1>
-      <div className="space-y-4">
-        {routes.map((route) => (
-          <Link href={`/home/cupos/${route.id}`} key={route.id}>
-            <RouteCard {...route} />
-          </Link>
-        ))}
-      </div>
+    <div className="bg-background text-foreground max-w-md mx-auto font-sans min-h-screen">
+      <ScrollArea className="h-screen">
+        <div className="p-4">
+          <h1 className="text-3xl font-bold mb-6">Rutas Disponibles</h1>
+          <div className="space-y-4 pb-20">
+            {routes.map((route) => (
+              <Link href={`/home/cupos/${route.id}`} key={route.id}>
+                <RouteCard {...route} />
+              </Link>
+            ))}
+          </div>
+        </div>
+      </ScrollArea>
     </div>
   );
 };
