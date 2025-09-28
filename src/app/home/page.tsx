@@ -56,7 +56,13 @@ const HomePage: React.FC = () => {
     const token = process.env.NEXT_PUBLIC_MAPBOX_API_KEY!;
     mapboxgl.accessToken = token;
 
-    if (!mapContainerRef.current || mapRef.current) return;
+    if (!mapContainerRef.current) return;
+
+    // Remove existing map if it's already initialized to prevent multiple map instances
+    if (mapRef.current) {
+      mapRef.current.remove();
+      mapRef.current = null;
+    }
 
     const map = new mapboxgl.Map({
       container: mapContainerRef.current,
@@ -68,18 +74,29 @@ const HomePage: React.FC = () => {
       zoom: 12,
     });
 
-    universities.forEach((uni) => {
-      const el = document.createElement('div');
-      el.className = 'marker';
-      el.style.backgroundImage = 'url(/marker.svg)'; // Using the new SVG
-      el.style.width = '48px';
-      el.style.height = '48px';
-      el.style.backgroundSize = '100%';
+    map.on('load', () => {
+      universities.forEach((uni) => {
+        const el = document.createElement('div');
+        el.className = 'marker';
+        el.style.backgroundImage = 'url(/marker.svg)'; // Using the new SVG
+        el.style.width = '48px';
+        el.style.height = '48px';
+        el.style.backgroundSize = '100%';
 
-      new mapboxgl.Marker(el)
-        .setLngLat(uni.lngLat as [number, number])
-        .setPopup(new mapboxgl.Popup().setText(uni.name))
-        .addTo(map);
+        new mapboxgl.Marker(el)
+          .setLngLat(uni.lngLat as [number, number])
+          .setPopup(
+            new mapboxgl.Popup({ offset: 25 }).setHTML(
+              `<div class="${
+                theme === 'dark' ? 'bg-gray-800 text-white' : 'bg-white text-gray-900'
+              } p-3 rounded-lg shadow-lg border ${theme === 'dark' ? 'border-gray-700' : 'border-gray-200'}">
+                <h3 class="font-bold text-lg mb-1">${uni.name}</h3>
+                <p class="text-sm">¡Explora las rutas disponibles desde aquí!</p>
+              </div>`
+            )
+          )
+          .addTo(map);
+      });
     });
 
     mapRef.current = map;
@@ -88,7 +105,7 @@ const HomePage: React.FC = () => {
       mapRef.current?.remove();
       mapRef.current = null;
     };
-  }, []);
+  }, [theme]);
 
   return (
     <div className="relative w-screen h-[100dvh] bg-background">
@@ -99,7 +116,7 @@ const HomePage: React.FC = () => {
         {showSuggestions && <SuggestedDestinations />}
       </div>
 
-      <InfoCards />
+      {/* <InfoCards /> */}
       <div className="absolute inset-0">
         <div ref={mapContainerRef} className="w-full h-full" />
       </div>

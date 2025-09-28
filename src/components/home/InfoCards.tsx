@@ -18,7 +18,7 @@ const InfoCards = () => {
   };
 
   return (
-    <div className="absolute bottom-0 left-0 right-0 p-4 grid grid-cols-3 gap-4 z-10">
+    <div className="absolute top-20 left-0 right-0 p-4 grid grid-cols-3 gap-4 z-10">
       {/* Next Trip Card */}
       <div className="bg-card/80 backdrop-blur-lg p-4 rounded-lg text-center">
         <FaBus className="text-primary text-2xl mx-auto mb-2" />
