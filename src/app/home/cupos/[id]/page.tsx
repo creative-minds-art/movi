@@ -199,13 +199,11 @@ const RouteDetailPage = () => {
       <div className="p-5">
         <div className="flex items-center justify-between mb-4">
           <div>
-            <h1 className="text-2xl font-bold">
-              Viaje Economy con {route.driverName}
-            </h1>
-            <p className="text-gray-500 dark:text-gray-400">{route.date}</p>
-            <p className="text-lg font-semibold mt-2">
-              ${route.price} - {route.vehicle}
+            <h1 className="text-2xl font-bold">Ruta con {route.driverName}</h1>
+            <p className="text-gray-500 dark:text-gray-400">
+              De {route.pickup} a {route.dropoff}
             </p>
+            <p className="text-gray-500 dark:text-gray-400">{route.date}</p>
           </div>
           <Image
             src={route.driverImage}
@@ -216,7 +214,7 @@ const RouteDetailPage = () => {
           />
         </div>
         <button className="bg-gray-200 dark:bg-gray-800 text-black dark:text-white w-full py-3 rounded-lg font-semibold mb-6">
-          Recibo
+          Reservar cupo
         </button>
 
         <div className="border-t border-gray-200 dark:border-gray-800 my-6"></div>
@@ -225,16 +223,16 @@ const RouteDetailPage = () => {
           <div className="flex items-center justify-between">
             <div className="flex items-center">
               <FaDollarSign className="text-2xl mr-4" />
-              <p>No se agregó un monto extra</p>
+              <p>No se ha añadido un monto extra</p>
             </div>
             <button className="bg-gray-200 dark:bg-gray-800 text-black dark:text-white px-4 py-2 rounded-lg font-semibold">
-              Agregar monto extra
+              Añadir monto extra
             </button>
           </div>
           <div className="flex items-center justify-between">
             <div className="flex items-center">
               <FaStar className="text-2xl mr-4" />
-              <p>Sin calificación</p>
+              <p>Aún no calificado</p>
             </div>
             <button className="bg-gray-200 dark:bg-gray-800 text-black dark:text-white px-4 py-2 rounded-lg font-semibold">
               Calificar
@@ -244,9 +242,9 @@ const RouteDetailPage = () => {
             <div className="flex items-center">
               <FaEyeSlash className="text-2xl mr-4" />
               <div>
-                <p>Ocultar este arrendamiento</p>
+                <p>Ocultar esta reserva</p>
                 <p className="text-sm text-gray-500 dark:text-gray-400">
-                  Eliminar este arrendamiento de tu actividad anterior
+                  Eliminar esta reserva de tu actividad anterior
                 </p>
               </div>
             </div>

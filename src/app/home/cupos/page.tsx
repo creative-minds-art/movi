@@ -97,13 +97,13 @@ const RouteCard = ({
       <div className="border-t border-border my-4"></div>
 
       <div className="flex items-center justify-between w-full">
-        <div className="flex items-center">
+        <div className="flex items-center overflow-hidden">
           <Image
             src={driverImage}
             alt="Driver Avatar"
             width={40}
             height={40}
-            className="rounded-full mr-3"
+            className="size-10 rounded-full mr-3 overflow-hidden"
           />
           <div>
             <p className="font-semibold">{driverName}</p>
