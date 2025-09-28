@@ -34,8 +34,8 @@ function WalletPage() {
   }, [api, onSelect]);
 
   return (
-    <ScrollArea className="h-screen overflow-hidden">
-      <div className="min-h-screen bg-background text-foreground font-sans">
+    <ScrollArea className="h-full">
+      <div className="h-full bg-background text-foreground font-sans">
         <div className="container mx-auto p-6">
           {/* Header */}
           <header className="flex justify-between items-center py-4">

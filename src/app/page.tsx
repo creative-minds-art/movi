@@ -89,7 +89,7 @@ export default function Home() {
       {/* Sidebar */}
       <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
       {/* Main Content */}
-      <div className="relative h-[100dvh] flex flex-col">
+      <div className="relative py-4 h-[100dvh] flex flex-col">
         {/* Header */}
         <motion.header
           className="flex justify-between items-center p-4 relative z-30"
@@ -217,7 +217,7 @@ export default function Home() {
                   ease: 'easeOut',
                 }}
               >
-                <Link href="/home" passHref>
+                <Link href="/login" passHref>
                   <motion.button
                     className="w-full bg-white text-black py-3 px-6 rounded-full font-medium hover:bg-gray-100 transition-colors flex items-center justify-between"
                     whileHover={{ scale: 1.02, y: -2 }}
@@ -241,7 +241,7 @@ export default function Home() {
                   </motion.button>
                 </Link>
 
-                <Link href="/home" passHref>
+                <Link href="/login" passHref>
                   <motion.button
                     className="w-full bg-transparent border border-white text-white py-3 px-6 rounded-full font-medium hover:bg-white hover:text-black transition-colors flex items-center justify-between"
                     whileHover={{ scale: 1.02, y: -2 }}
