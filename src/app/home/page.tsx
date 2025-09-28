@@ -1,8 +1,8 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
+import { useRouter } from 'next/navigation';
 import mapboxgl from 'mapbox-gl';
-import InfoCards from '@/components/home/InfoCards';
 import SearchBar from '@/components/home/SearchBar';
 import SuggestedDestinations from '@/components/home/SuggestedDestinations';
 import { useTheme } from 'next-themes';
@@ -46,10 +46,15 @@ const HomePage: React.FC = () => {
   const mapContainerRef = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<mapboxgl.Map | null>(null);
   const { theme } = useTheme();
+  const router = useRouter();
   const [showSuggestions, setShowSuggestions] = useState(false);
 
   const toggleSuggestions = () => {
     setShowSuggestions(!showSuggestions);
+  };
+
+  const handleExploreRoutes = () => {
+    router.push('/home/cupos');
   };
 
   useEffect(() => {
@@ -83,29 +88,46 @@ const HomePage: React.FC = () => {
         el.style.height = '48px';
         el.style.backgroundSize = '100%';
 
+        const popup = new mapboxgl.Popup({ offset: 25 }).setHTML(
+          `<div class="${
+            theme === 'dark'
+              ? 'bg-gray-800 text-white'
+              : 'bg-white text-gray-900'
+          } p-3 rounded-lg shadow-lg border ${
+            theme === 'dark' ? 'border-gray-700' : 'border-gray-200'
+          }">
+            <h3 class="font-bold text-lg mb-2">${uni.name}</h3>
+            <p class="text-sm mb-3">¡Explora las rutas disponibles desde aquí!</p>
+            <button 
+              onclick="window.exploreRoutes()"
+              class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md transition-colors duration-200"
+            >
+              Explorar rutas
+            </button>
+          </div>`
+        );
+
         new mapboxgl.Marker(el)
           .setLngLat(uni.lngLat as [number, number])
-          .setPopup(
-            new mapboxgl.Popup({ offset: 25 }).setHTML(
-              `<div class="${
-                theme === 'dark' ? 'bg-gray-800 text-white' : 'bg-white text-gray-900'
-              } p-3 rounded-lg shadow-lg border ${theme === 'dark' ? 'border-gray-700' : 'border-gray-200'}">
-                <h3 class="font-bold text-lg mb-1">${uni.name}</h3>
-                <p class="text-sm">¡Explora las rutas disponibles desde aquí!</p>
-              </div>`
-            )
-          )
+          .setPopup(popup)
           .addTo(map);
       });
     });
+
+    // Make handleExploreRoutes available globally for the popup buttons
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (window as any).exploreRoutes = handleExploreRoutes;
 
     mapRef.current = map;
 
     return () => {
       mapRef.current?.remove();
       mapRef.current = null;
+      // Clean up global function
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      delete (window as any).exploreRoutes;
     };
-  }, [theme]);
+  }, [theme, router]);
 
   return (
     <div className="relative w-screen h-[100dvh] bg-background">
